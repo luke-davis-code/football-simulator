@@ -5,7 +5,7 @@ using UnityEngine;
 public class GoalkeeperMovement : MonoBehaviour
 {
     public Rigidbody myRigidbody;
-    public float diveStrength;
+    public float moveStrength;
 
     // Start is called before the first frame update
     void Start()
@@ -16,12 +16,12 @@ public class GoalkeeperMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W)) {
-            myRigidbody.velocity = Vector3.forward * diveStrength;
+        if (Input.GetKey(KeyCode.W)) {
+            myRigidbody.velocity = Vector3.forward * moveStrength;
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
-            myRigidbody.velocity = Vector3.back * diveStrength;
+            myRigidbody.velocity = Vector3.back * moveStrength;
         }
     }
 }

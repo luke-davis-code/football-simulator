@@ -5,7 +5,7 @@ using UnityEngine;
 public class GKTeam2Movement : MonoBehaviour
 {
     public Rigidbody myRigidbody;
-    public float diveStrength;
+    public float moveStrength;
 
     // Start is called before the first frame update
     void Start()
@@ -16,13 +16,13 @@ public class GKTeam2Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
-            myRigidbody.velocity = Vector3.forward * diveStrength;
+            myRigidbody.velocity = Vector3.forward * moveStrength;
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
-            myRigidbody.velocity = Vector3.back * diveStrength;
+            myRigidbody.velocity = Vector3.back * moveStrength;
         }
     }
 }
