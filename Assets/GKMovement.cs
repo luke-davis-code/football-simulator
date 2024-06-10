@@ -16,7 +16,13 @@ public class GoalkeeperMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+
+    }
+
+    // FixedUpdate is called whenever is needed per frame
+    void FixedUpdate()
     {
         if (Input.GetKey(upKey)) {
             myRigidbody.velocity = Vector3.forward * moveStrength;

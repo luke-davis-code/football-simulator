@@ -5,12 +5,8 @@ using UnityEngine;
 public class CFMovement : MonoBehaviour
 {
     public Rigidbody myRigidbody;
-    public float moveStrength;
-    public KeyCode upKey;
-    public KeyCode downKey;
-    public KeyCode leftKey;
-    public KeyCode rightKey;
-
+    public float speed;
+    public Vector3 transformation;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,23 +14,16 @@ public class CFMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKey(upKey))
-        {
-            myRigidbody.velocity = Vector3.forward * moveStrength;
-        }
-        if (Input.GetKey(downKey))
-        {
-            myRigidbody.velocity = Vector3.back * moveStrength;
-        }
-        if (Input.GetKey(leftKey))
-        {
-            myRigidbody.velocity = Vector3.left * moveStrength;
-        }
-        if (Input.GetKey(rightKey))
-        {
-            myRigidbody.velocity = Vector3.right * moveStrength;
-        }
+        // Get vector to transform player by
+        transformation = new Vector3(Input.GetAxis("Horizontal") * speed, 0 , Input.GetAxis("Vertical") * speed);
+    }
+
+    // FixedUpdate is called whenever is needed per frame
+    void FixedUpdate()
+    {
+        // Movement using Input.Getaxis
+        myRigidbody.AddForce(transformation);
     }
 }
