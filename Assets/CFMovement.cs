@@ -21,6 +21,7 @@ public class CFMovement : MonoBehaviour
         // Get vector to transform player by
         transformation = new Vector3(Input.GetAxis("Horizontal"), 0 , Input.GetAxis("Vertical"));
         // Get rotation vector to rotate player by
+        rotation = Quaternion.LookRotation(transformation);
     }
 
     // FixedUpdate is called whenever is needed per frame
@@ -28,5 +29,6 @@ public class CFMovement : MonoBehaviour
     {
         // Movement using Input.Getaxis
         myRigidbody.AddForce(transformation * speed);
+        myRigidbody.rotation = rotation;
     }
 }
