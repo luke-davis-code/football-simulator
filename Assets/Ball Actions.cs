@@ -5,6 +5,7 @@ using UnityEngine;
 public class Dribbling : MonoBehaviour
 {
     private Vector3 position;
+    private bool hasBall;
 
     // Start is called before the first frame update
     void Start()
@@ -15,9 +16,17 @@ public class Dribbling : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (hasBall)
+        {
+            // Check if shoot button is pressed
+            if (Input.GetButtonDown("Shoot"))
+            {
+                Shoot();
+            }
+        }
     }
 
+    // Dribbling
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -30,6 +39,13 @@ public class Dribbling : MonoBehaviour
             // Stop collision between objects after they are connected
             // Stops objects from continuing to collide and creating more joints
             fixedJoint.enableCollision = false;
+            hasBall = true;
         }
+    }
+
+    private void Shoot()
+    {
+        Debug.Log("Shooting");
+        hasBall = false;
     }
 }
