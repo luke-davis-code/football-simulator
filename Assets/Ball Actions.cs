@@ -6,6 +6,9 @@ public class Dribbling : MonoBehaviour
 {
     private Vector3 position;
     private bool atFeet;
+    private Vector3 shotDirection;
+    public Rigidbody myRigidbody;
+    public float ballSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -49,10 +52,15 @@ public class Dribbling : MonoBehaviour
     }
 
     // Shooting
-    // Disconnect ball from player when shooting
+    
     private void Shoot()
     {
         Debug.Log("Shooting");
+        // Apply force to ball in direction player is looking at given time
+        // direction player is looking is where the player is moving towards
+        shotDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        myRigidbody.AddForce(shotDirection * ballSpeed);
+        // Disconnect ball from player when shooting
         Object.Destroy(gameObject.GetComponent<FixedJoint>());
         atFeet = false;
     }
