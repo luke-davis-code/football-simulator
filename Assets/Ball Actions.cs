@@ -41,7 +41,14 @@ public class Dribbling : MonoBehaviour
             // First need to check if there is already a joint between ball and a player
             if (gameObject.GetComponent<FixedJoint>() == null)
             {
+                // Create joint
                 FixedJoint fixedJoint = gameObject.AddComponent<FixedJoint>();
+                // Now move ball so it is centered at players feet
+                // The position of the ball is the anchor
+                // Position of player is connectedAnchor
+                fixedJoint.autoConfigureConnectedAnchor = false;
+                fixedJoint.connectedAnchor = 
+                Debug.Log("position set");
                 fixedJoint.connectedBody = collision.rigidbody;
                 // Stop collision between objects after they are connected
                 // Stops objects from continuing to collide and creating more joints
