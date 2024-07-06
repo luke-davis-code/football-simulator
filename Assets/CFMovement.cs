@@ -24,7 +24,11 @@ public class CFMovement : MonoBehaviour
         // Get rotation vector to rotate player by
         eulerAngleVelocity = new Vector3(0, rotationSpeed, 0);
         // Apply rotation in update as does not use physics
-        transform.rotation = Quaternion.LookRotation(transformation);
+        // If the rotation is zero then do not apply as this prevents the rotation being smooth
+        if (transformation != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(transformation);
+        }
     }
 
     // FixedUpdate is called whenever is needed per frame
