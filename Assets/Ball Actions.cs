@@ -47,7 +47,6 @@ public class Dribbling : MonoBehaviour
                 // The position of the ball is the anchor
                 // Position of player is connectedAnchor
                 fixedJoint.autoConfigureConnectedAnchor = false;
-                fixedJoint.connectedAnchor = 
                 Debug.Log("position set");
                 fixedJoint.connectedBody = collision.rigidbody;
                 // Stop collision between objects after they are connected
