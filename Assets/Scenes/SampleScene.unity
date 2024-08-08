@@ -923,8 +923,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac0895de99a8cb42a9854c4fbbd907d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRigidbody: {fileID: 1343813745}
-  ballSpeed: 500
+  ballRigidbody: {fileID: 1343813745}
+  shotSpeed: 250
 --- !u!1 &1550360007
 GameObject:
   m_ObjectHideFlags: 0

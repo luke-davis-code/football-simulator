@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Dribbling : MonoBehaviour
 {
-    private Vector3 position;
     private bool atFeet;
-    private Vector3 shotDirection;
-    public Rigidbody myRigidbody;
-    public float ballSpeed;
-
+    private Vector3 lookDirection;
+    public Rigidbody ballRigidbody;
+    public float shotSpeed;
+    private GameObject player;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,48 +27,35 @@ public class Dribbling : MonoBehaviour
             {
                 Shoot();
             }
-        }
-    }
-
-    // Dribbling
-    // Connect ball to player when they touch
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            // Need the ball to follow the player after they collide
-            // Cannot set the player as parent as this does not work in conjuction with the ball having its own physics
-            // So add a joint between the two objects
-            // First need to check if there is already a joint between ball and a player
-            if (gameObject.GetComponent<FixedJoint>() == null)
+            else
             {
-                // Create joint
-                FixedJoint fixedJoint = gameObject.AddComponent<FixedJoint>();
-                // Now move ball so it is centered at players feet
-                // The position of the ball is the anchor
-                // Position of player is connectedAnchor
-                fixedJoint.autoConfigureConnectedAnchor = false;
-                Debug.Log("position set");
-                fixedJoint.connectedBody = collision.rigidbody;
-                // Stop collision between objects after they are connected
-                // Stops objects from continuing to collide and creating more joints
-                fixedJoint.enableCollision = false;
-                atFeet = true;
+                transform.position = player.transform.position + new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             }
         }
     }
 
+    // Dribbling
+    // Ball follows player after they collide
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            // Set current player to the player ball hits
+            player = collision.gameObject;
+            // Set dribbling flag to true
+            atFeet = true;
+        }
+    }
+
     // Shooting
-    
+    // Force is applied to ball after shot button pressed
     private void Shoot()
     {
         Debug.Log("Shooting");
         // Apply force to ball in direction player is looking at given time
         // direction player is looking is where the player is moving towards
-        shotDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        myRigidbody.AddForce(shotDirection * ballSpeed);
-        // Disconnect ball from player when shooting
-        Object.Destroy(gameObject.GetComponent<FixedJoint>());
+        lookDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        ballRigidbody.AddForce(lookDirection * shotSpeed);
         atFeet = false;
     }
 }
