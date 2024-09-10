@@ -257,7 +257,7 @@ Rigidbody:
   m_GameObject: {fileID: 149356980}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -923,8 +923,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ac0895de99a8cb42a9854c4fbbd907d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myRigidbody: {fileID: 1343813745}
-  ballSpeed: 500
+  ballRigidbody: {fileID: 0}
+  shotSpeed: 0
 --- !u!1 &1550360007
 GameObject:
   m_ObjectHideFlags: 0
