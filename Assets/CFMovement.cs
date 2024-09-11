@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CFMovement : MonoBehaviour
 {
-    public Rigidbody myRigidbody;
+    public CharacterController myController;
     public float speed;
     public float rotationSpeed;
     private Vector3 transformation;
@@ -20,7 +20,7 @@ public class CFMovement : MonoBehaviour
     private void Update()
     {
         // Get vector to transform player by
-        transformation = new Vector3(Input.GetAxis("Horizontal"), 0 , Input.GetAxis("Vertical"));
+        transformation = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         // Get rotation vector to rotate player by
         eulerAngleVelocity = new Vector3(0, rotationSpeed, 0);
         // Apply rotation in update as does not use physics
@@ -29,12 +29,6 @@ public class CFMovement : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(transformation);
         }
-    }
-
-    // FixedUpdate is called whenever is needed per frame
-    void FixedUpdate()
-    {
-        // Movement using Input.Getaxis
-        myRigidbody.AddForce(transformation * speed);
+        myController.Move(transformation * speed * Time.deltaTime);
     }
 }

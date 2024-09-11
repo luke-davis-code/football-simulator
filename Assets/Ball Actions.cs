@@ -7,9 +7,9 @@ public class Dribbling : MonoBehaviour
 {
     private bool atFeet;
     private Vector3 lookDirection;
-    public Rigidbody ballRigidbody;
+    public CharacterController ballController;
     public float shotSpeed;
-    private GameObject player;
+    private GameObject current_player;
     
     // Start is called before the first frame update
     void Start()
@@ -27,21 +27,23 @@ public class Dribbling : MonoBehaviour
             {
                 Shoot();
             }
-            else
+            // Ensure ball is always ahead of player
+            if (new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) != Vector3.zero)
             {
-                transform.position = player.transform.position + new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                lookDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             }
+            transform.position = current_player.transform.position + lookDirection;
         }
     }
 
     // Dribbling
     // Ball follows player after they collide
-    private void OnCollisionEnter(Collision collision)
+    private void OnControllerCollisionEnter(ControllerColliderHit collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             // Set current player to the player ball hits
-            player = collision.gameObject;
+            current_player = collision.gameObject;
             // Set dribbling flag to true
             atFeet = true;
         }
@@ -55,7 +57,7 @@ public class Dribbling : MonoBehaviour
         // Apply force to ball in direction player is looking at given time
         // direction player is looking is where the player is moving towards
         lookDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        ballRigidbody.AddForce(lookDirection * shotSpeed);
+        // ADDD IN FORCE TO SHOOT BALL HERE
         atFeet = false;
     }
 }
