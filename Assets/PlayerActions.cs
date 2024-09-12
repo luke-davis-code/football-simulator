@@ -12,11 +12,11 @@ public class PlayerActions : MonoBehaviour
     public float rotationSpeed;
     private Vector3 transformation;
     private Vector3 eulerAngleVelocity;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -24,6 +24,8 @@ public class PlayerActions : MonoBehaviour
     {
         // Get vector to transform player by
         transformation = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        // Set current speed for animator to use
+        animator.SetFloat("CurrentSpeed", transformation.x + transformation.z);
         // Get rotation vector to rotate player by
         eulerAngleVelocity = new Vector3(0, rotationSpeed, 0);
         // Apply rotation in update as does not use physics
@@ -37,11 +39,13 @@ public class PlayerActions : MonoBehaviour
         if (Gamepad.current.rightTrigger.wasPressedThisFrame)
         {
             speed = speed * 1.50f;
+            animator.SetBool("Sprint", true);
         }
         // Change back to normal speed when right trigger released
         if (Gamepad.current.rightTrigger.wasReleasedThisFrame)
         {
             speed = speed / 1.5f;
+            animator.SetBool("Sprint", false);
         }
     }
 }
