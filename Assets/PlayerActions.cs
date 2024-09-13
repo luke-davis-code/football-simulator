@@ -12,6 +12,7 @@ public class PlayerActions : MonoBehaviour
     public Animator animator;
     public float movementSpeed;
     public float rotationSpeed;
+    public float sprintModifier;
     private float currentSpeed;
     private Vector3 transformation;
     private Vector3 eulerAngleVelocity;
@@ -42,23 +43,21 @@ public class PlayerActions : MonoBehaviour
         // Allow sprint when right trigger is pressed
         if (Gamepad.current.rightTrigger.wasPressedThisFrame)
         {
-            movementSpeed = movementSpeed * 1.50f;
-            animator.SetBool("Sprint", true);
+            movementSpeed = movementSpeed * sprintModifier;
+            sprinting = true;
         }
         // Change back to normal speed when right trigger released
         if (Gamepad.current.rightTrigger.wasReleasedThisFrame)
         {
-            movementSpeed = movementSpeed / 1.5f;
-            // ADD A SPRINT MODIFIER
-            animator.SetBool("Sprint", false);
+            movementSpeed = movementSpeed / sprintModifier;
+            sprinting = false;
         }
         
         // Animation Code
         // Set the current speed number to keep track of speed for animator to use
         // Use the absolute values of the joystick inputs to do this
         currentSpeed = Mathf.Abs(transformation.x) + Mathf.Abs(transformation.z);
-        Debug.Log(currentSpeed);
-        // Joystic input has values from -1 to 1 so with absolute 0 to 1
+        // Joystick input has values from -1 to 1 so with absolute 0 to 1
         // For values at 0 play idle animation
         // For values between 0 to 0.5 play walking animation
         // For values greater than 0.5 play running animation
