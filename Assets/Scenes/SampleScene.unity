@@ -487,10 +487,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myController: {fileID: 1953244429}
-  speed: 10
-  ballSpeed: 5
-  rotationSpeed: 1
   animator: {fileID: 1953244431}
+  movementSpeed: 10
+  rotationSpeed: 1
 --- !u!95 &1953244431 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 0e1e29b35a3700748811d120b13ed8d6,
